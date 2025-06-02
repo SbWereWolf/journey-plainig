@@ -19,8 +19,8 @@ class m250602_194000_create_table_service_timetable_slot extends Migration
                 'title' => $this->string()->comment('Название'),
                 'timetable_slot_id' => $this->bigInteger()
                     ->comment('Слот времени в расписании'),
-                'service_id' => $this->bigInteger()
-                    ->comment('Услуга'),
+                'service_uuid' => $this->string()
+                    ->comment('Уникальный идентификатор услуги'),
             ]
         );
 

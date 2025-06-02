@@ -15,12 +15,20 @@ class m250602_195914_create_table_transfer_service extends Migration
             $this->table,
             [
                 'id' => $this->bigPrimaryKey()->comment('Номер'),
+                'uuid' => $this->string()
+                    ->comment('Уникальный идентификатор'),
                 'status_id' => $this->bigInteger()->comment('Статус'),
                 'title' => $this->string()->comment('Название'),
                 'description' => $this->string()->comment('Описание'),
                 'seat_number' =>
                     $this->string()->comment('Номер места'),
             ]
+        );
+
+        $this->execute(<<<SQL
+alter table $this->table 
+    alter column uuid set default gen_random_uuid()::character varying
+SQL
         );
 
         $this->addForeignKey(

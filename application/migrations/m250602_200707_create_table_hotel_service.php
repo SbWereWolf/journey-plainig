@@ -15,6 +15,8 @@ class m250602_200707_create_table_hotel_service extends Migration
             $this->table,
             [
                 'id' => $this->bigPrimaryKey()->comment('Номер'),
+                'uuid' => $this->string()
+                    ->comment('Уникальный идентификатор'),
                 'status_id' => $this->bigInteger()->comment('Статус'),
                 'title' => $this->string()->comment('Название'),
                 'description' => $this->string()->comment('Описание'),
@@ -22,6 +24,12 @@ class m250602_200707_create_table_hotel_service extends Migration
                 'room_number' =>
                     $this->string()->comment('Номер номера'),
             ]
+        );
+
+        $this->execute(<<<SQL
+alter table $this->table 
+    alter column uuid set default gen_random_uuid()::character varying
+SQL
         );
 
         $this->addForeignKey(
